@@ -1,0 +1,4 @@
+べき等ではない関数は次の通り
+read_file
+scan
+frequencies
