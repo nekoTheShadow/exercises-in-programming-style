@@ -1,0 +1,1 @@
+lambda name : list(filter(lambda w : w not in stops, re.findall(r'\w+', open(name).read().lower())))
