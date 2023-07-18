@@ -1,0 +1,18 @@
+def run(path_to_file):
+    import re
+
+    pattern = re.compile('\w+')
+    words = []
+    with open(path_to_file) as f:
+        for i, line in enumerate(f):
+            page = i//45+1
+            words.extend((word, page) for word in pattern.findall(line.lower()))
+
+    with open('../target_words.txt') as f:
+        target_words = f.read().split(',')
+
+
+    for target_word in sorted(target_words):
+        for i, (word, page) in enumerate(words):
+            if word == target_word:
+                print(*(words[i+j][0] for j in range(-2, 3)), "-", page)
