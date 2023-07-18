@@ -1,0 +1,20 @@
+def run(path_to_file):
+    import re, string, collections
+
+    with open('../stop_words.txt') as f:
+        stop_words = f.read().split(',')
+    stop_words.extend(iter(string.ascii_lowercase))
+
+    pattern = re.compile('[a-z]+')
+    pages = collections.defaultdict(list)
+    with open(path_to_file) as f:
+        for i, line in enumerate(f):
+            page = i//45+1
+            for word in pattern.findall(line.lower()):
+                if not word in stop_words and not page in pages[word]:
+                    pages[word].append(page)
+
+    for word, pages in sorted(pages.items()):
+        if len(pages) < 100:
+            print(word, ' ,'.join(map(str, pages)))
+
